@@ -1,0 +1,19 @@
+{
+    "usuario":[
+        {
+            "id":1,
+            "name":"usu1",
+            "age":25,
+            "password":123,
+            "email":"usu1@gmail.com"
+        },
+        {
+            "id":2,
+            "name":"emi",
+            "age":25,
+            "password":123,
+            "email":"emi@gmail.com"
+        }
+    ],
+    "login":[]
+}
