@@ -36,6 +36,9 @@
     "owner": "emicerv",
     "updates": {
       "url": "https://u.expo.dev/7ab0b234-2940-4cc6-af68-162721193967"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
