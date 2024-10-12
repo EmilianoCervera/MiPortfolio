@@ -2,26 +2,23 @@ import { useReducer } from "react";
 import { apiAxio } from "../config/apiAxio";
 import { AuthReducer } from "../reducers/AuthReducer";
 import { AuthContext } from "../context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const initialValues = {
-  user: {
-    name: "",
-    lastname: "",
-    isloading: true,
-  },
+  user: { name: "", lastname: "", isloading: true },
   token: null,
+  isLogged: false,
+  errormsj: "",
 };
 
 export const AuthProviders = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialValues);
 
+  // Método de login para verificar el usuario
   const login = async (email, password) => {
     try {
       const { data } = await apiAxio.get("/usuario", {
-        params: {
-          email,
-          password,
-        },
+        params: { email, password },
       });
 
       if (data.length > 0) {
@@ -29,57 +26,37 @@ export const AuthProviders = ({ children }) => {
         dispatch({
           type: "LOGIN",
           payload: {
-            user: {
-              name: user.name,
-              lastname: user.lastname,
-            },
-            token: "fake-jwt-token", // Puedes generar un token aquí si lo necesitas
+            user: { name: user.name, lastname: user.lastname },
+            token: "fake-jwt-token", 
           },
         });
-        return true; // Login exitoso
+
+        await AsyncStorage.setItem("token", "fake-jwt-token");
+
+        return true;
       } else {
-        console.log("Usuario no encontrado o credenciales incorrectas");
-        return false; // Login fallido
+        dispatch({
+          type: "LOGIN_FAILED",
+          payload: {
+            errormsj: "Credenciales incorrectas. Intenta nuevamente.",
+          },
+        });
+        return false;
       }
     } catch (error) {
       console.error("Error en el login:", error);
-      return false; // Error en el proceso de login
+      dispatch({
+        type: "LOGIN_FAILED",
+        payload: {
+          errormsj: "Error en la conexión. Inténtalo de nuevo más tarde.",
+        },
+      });
+      return false;
     }
-  };
-
-  const register = async (newUser) => {
-    try {
-      const { data: usuarios } = await apiAxio.get("/usuario");
-
-      // Asignar un nuevo ID basado en el ulti
-      const newId =
-        usuarios.length > 0 ? usuarios[usuarios.length - 1].id + 1 : 1;
-      const userWithId = { ...newUser, id: newId };
-
-      // Hacer la petición POST para agregar el nuevo usuario
-      await apiAxio.post("/usuario", userWithId);
-
-      console.log("Registro exitoso:", userWithId);
-      return true; // Registro exitoso
-    } catch (error) {
-      console.error("Error en el registro:", error);
-      return false; // Error en el registro
-    }
-  };
-
-  const logout = () => {
-    dispatch({ type: "LOGOUT" });
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        state,
-        login,
-        logout,
-        register
-      }}
-    >
+    <AuthContext.Provider value={{ state, dispatch, login }}>
       {children}
     </AuthContext.Provider>
   );

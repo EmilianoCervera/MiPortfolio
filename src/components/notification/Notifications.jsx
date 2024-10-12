@@ -10,25 +10,11 @@ import { useForm } from "../hooks/useForm";
 import { Loggoutbutton } from "../UI/Loggoutbutton";
 import { AuthContext } from "../../context/AuthContext";
 
+// Inicializamos los comentarios
 const initialNotifis = [
-  {
-    id: "1",
-    title: "nombre 1",
-    description: "Comentario 1",
-    image: image,
-  },
-  {
-    id: "1",
-    title: "nombre 1",
-    description: "Comentario 1",
-    image: image,
-  },
-  {
-    id: "1",
-    title: "nombre 1",
-    description: "Comentario 1",
-    image: image,
-  },
+  { id: "1", title: "nombre 1", description: "Comentario 1", image: image },
+  { id: "2", title: "nombre 2", description: "Comentario 2", image: image },
+  { id: "3", title: "nombre 3", description: "Comentario 3", image: image },
 ];
 
 export const Notifications = () => {
@@ -36,22 +22,26 @@ export const Notifications = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalType, setModalType] = useState(""); // "registro" o "ingreso" o "denegado"
+  const [modalType, setModalType] = useState(""); // "registro", "ingreso", "denegado"
   const { formState, onChageInput } = useForm();
   const { state } = useContext(AuthContext); // Obtener el estado del contexto
 
-  // Aquí definimos la función handleOpenModal
+  // Manejar la apertura del modal
   const handleOpenModal = (type) => {
     setModalType(type);
     setIsModalVisible(true);
   };
 
+  // Agregar un nuevo comentario solo si el usuario está autenticado
   const addEvent = () => {
     if (!state.token) {
-      handleOpenModal("denegado"); // Si no está autenticado, abre el modal con tipo "denegado"
+      handleOpenModal("denegado"); // Abre el modal de "denegado" si no está autenticado
       return;
     }
-
+    if (!title || !description) {
+      Alert.alert("Error", "El título y la descripción son obligatorios.");
+      return;
+    }
     const newEvent = {
       id: (notifis.length + 1).toString(),
       title: title,
@@ -64,11 +54,13 @@ export const Notifications = () => {
     setDescription("");
   };
 
+  // Cierra el modal cuando el login es exitoso
   const handleLoginSuccess = () => {
-    setIsModalVisible(false); // Cierra el modal si el login es exitoso
+    setIsModalVisible(false); // Cierra el modal al hacer login exitoso
     Alert.alert("Login Exitoso", "Ahora puedes escribir un comentario.");
   };
 
+  // Validar el estado de autenticación antes de permitir la acción
   const handleSubmit = () => {
     if (!state.token) {
       Alert.alert("Error", "Debes estar autenticado para agregar comentarios.");
@@ -91,7 +83,7 @@ export const Notifications = () => {
           description={description}
           setTitle={setTitle}
           setDescription={setDescription}
-          addEvent={addEvent}
+          addEvent={addEvent} // Función para agregar eventos
         />
         <Loggoutbutton style={styles.logoutButton} />
       </View>
@@ -101,8 +93,8 @@ export const Notifications = () => {
         onChangeInput={onChageInput}
         onClose={() => setIsModalVisible(false)}
         onSubmit={handleSubmit}
-        onOpenModal={handleOpenModal} // Pasar función para manejar aperturas de modal
-        onLoginSuccess={handleLoginSuccess} // Pasar la función de éxito de login
+        onOpenModal={handleOpenModal} // Manejar aperturas de modal
+        onLoginSuccess={handleLoginSuccess} // Notificar éxito en el login
       />
     </ImageBackground>
   );
@@ -114,10 +106,7 @@ const styles = StyleSheet.create({
     height: "89%",
     borderRadius: 25,
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 3,

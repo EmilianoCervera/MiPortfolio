@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { Modal, View, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import RegistroForm from "../Loguin/RegistroForm";
 import IngresoForm from "../Loguin/IngresoForm";
@@ -7,12 +7,22 @@ import IngresoForm from "../Loguin/IngresoForm";
 const AuthModal = ({
   isVisible,
   modalType,
-  onChangeInput,
   onClose,
   onSubmit,
   onOpenModal,
-  onLoginSuccess // Agregar prop
+  onLoginSuccess, // Prop para notificar éxito en login
 }) => {
+
+  // Función para manejar el submit en el formulario de ingreso
+  const handleLoginSubmit = async () => {
+    const success = await onSubmit(); // Verifica si el login es exitoso
+    if (success) {
+      onLoginSuccess(); // Si el login es exitoso, ejecuta la función para cerrar el modal
+    } else {
+      Alert.alert("Login Fallido", "Credenciales incorrectas.");
+    }
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -22,6 +32,7 @@ const AuthModal = ({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
+          {/* Modal para acceso denegado */}
           {modalType === "denegado" && (
             <>
               <Text style={styles.warningText}>Acceso denegado</Text>
@@ -44,19 +55,18 @@ const AuthModal = ({
               </View>
             </>
           )}
+
+          {/* Modal para el formulario de registro */}
           {modalType === "registro" && (
-            <RegistroForm
-              onChangeInput={onChangeInput}
-              onSubmit={onSubmit}
-            />
+            <RegistroForm onSubmit={onSubmit} />
           )}
+
+          {/* Modal para el formulario de ingreso */}
           {modalType === "ingreso" && (
-            <IngresoForm
-              onChangeInput={onChangeInput}
-              onSubmit={onSubmit}
-              onLoginSuccess={onLoginSuccess} // Pasar prop a IngresoForm
-            />
+            <IngresoForm onSubmit={handleLoginSubmit} onLoginSuccess={onLoginSuccess}/>
           )}
+
+          {/* Botón de cierre */}
           <View style={styles.modalButtons}>
             <TouchableOpacity onPress={onClose} style={styles.closeButton}>
               <AntDesign name="closecircle" size={24} color="black" />
@@ -105,13 +115,6 @@ const styles = StyleSheet.create({
     width: 100,
     alignItems: "center",
     marginHorizontal: 10,
-    shadowColor: "#fff",
-    shadowOffset: {
-      width: 0,
-      height: -2,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 4.65,
   },
   buttonText: {
     color: "#fff",
@@ -122,13 +125,6 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: "center",
     marginVertical: 5,
-    shadowColor: "#fff",
-    shadowOffset: {
-      width: 0,
-      height: -2,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 4.65,
   },
 });
 

@@ -5,7 +5,10 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  KeyboardAvoidingView,
   Alert,
+  Platform,
+  ScrollView,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
 import { useForm } from "../hooks/useForm";
@@ -13,8 +16,11 @@ import { useNavigation } from "@react-navigation/native";
 
 const IngresoForm = ({ onLoginSuccess }) => {
   const navigation = useNavigation();
-  const { formState, onChangeInput } = useForm();
-  const { login } = useContext(AuthContext);
+  const { formState, onChangeInput } = useForm({
+    email: "",
+    password: "", // Asegúrate de inicializar los campos del formulario
+  });
+  const { login, state } = useContext(AuthContext);
 
   const handleSubmit = async () => {
     const { email, password } = formState;
@@ -25,52 +31,60 @@ const IngresoForm = ({ onLoginSuccess }) => {
       return;
     }
 
-    try {
-      const isValid = await login(email, password);
+    const isValid = await login(email, password);
 
-
-      if (isValid) {
-        onLoginSuccess(); // Llama a la función cuando el login sea exitoso
-      } else {
-        Alert.alert("Error", "Credenciales incorrectas. Intenta nuevamente.");
-      }
-    } catch (error) {
-      console.error("Login failed:", error);
-      Alert.alert("Error", "Ocurrió un error durante el login. Por favor, intenta de nuevo.");
+    if (isValid) {
+      onLoginSuccess(); // Llama a la función cuando el login sea exitoso
+    } else {
+      // Mostrar el mensaje de error del estado (errormsj)
+      Alert.alert("Error", state.errormsj || "Credenciales incorrectas.");
     }
   };
 
-  const handleRegister = () => {
-    navigation.navigate("Registro");
-  };
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.headerText}>Ingresar</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Correo"
-        placeholderTextColor="#000"
-        onChangeText={(value) => onChangeInput("email", value)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Contraseña"
-        placeholderTextColor="#000"
-        secureTextEntry
-        onChangeText={(value) => onChangeInput("password", value)}
-      />
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Enviar</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"} // Diferente comportamiento para iOS y Android
+      keyboardVerticalOffset={100} // Ajustar si es necesario
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.container}>
+          <Text style={styles.headerText}>Ingresar</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Correo"
+            placeholderTextColor="#000"
+            onChangeText={(value) => onChangeInput("email", value)}
+            value={formState.email}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Contraseña"
+            placeholderTextColor="#000"
+            secureTextEntry
+            onChangeText={(value) => onChangeInput("password", value)}
+            value={formState.password}
+          />
+          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>Enviar</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingHorizontal: 20,
+    paddingHorizontal:15,
+    justifyContent: "center", // Centrar los elementos dentro del contenedor
+    flexGrow: 1,
+    backgroundColor:"red",
+    
   },
   headerText: {
     color: "white",
@@ -96,6 +110,13 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     fontSize: 16,
+  },
+  registerButton: {
+    backgroundColor: "#555",
+    borderRadius: 50,
+    padding: 10,
+    alignItems: "center",
+    marginVertical: 5,
   },
 });
 

@@ -6,7 +6,13 @@ export const AuthReducer = (state, action) => {
         user: action.payload.user,
         token: action.payload.token,
         isLogged: true,
-        errormsj:""
+        errormsj: "",
+      };
+    case "LOGIN_FAILED":
+      return {
+        ...state,
+        isLogged: false,
+        errormsj: action.payload.errormsj, // Actualiza el mensaje de error
       };
     case "LOGOUT":
       return {
@@ -14,7 +20,7 @@ export const AuthReducer = (state, action) => {
         user: null,
         token: null,
         isLogged: false,
-        errormsj:""
+        errormsj: "",
       };
 
     default:
