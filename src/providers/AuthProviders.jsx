@@ -1,8 +1,8 @@
 import { useReducer } from "react";
+//import { apiAxio } from "../config/apiAxio";
 import { AuthReducer } from "../reducers/AuthReducer";
 import { AuthContext } from "../context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 const hardcodedUser = {
   email: "usuario@usu.com", 
