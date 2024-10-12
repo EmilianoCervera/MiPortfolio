@@ -9,15 +9,22 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
-    },
-    "production": {
-      "node":">= 22.5.1",
-      "android":{
+      "distribution": "internal",
+      "channel": "preview",
+      "android": {
         "image": "latest",
         "buildType": "apk"
       },
-      "ios":{
+      "ios": {
+        "image": "latest"
+      }
+    },
+    "production": {
+      "android": {
+        "image": "latest",
+        "buildType": "apk"
+      },
+      "ios": {
         "image": "latest"
       },
       "autoIncrement": true

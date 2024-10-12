@@ -20,7 +20,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.emicerv.miportfolio"
+      "package": "com.emicerv.miportfolio",
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,6 +33,9 @@
         "projectId": "7ab0b234-2940-4cc6-af68-162721193967"
       }
     },
-    "owner": "emicerv"
+    "owner": "emicerv",
+    "updates": {
+      "url": "https://u.expo.dev/7ab0b234-2940-4cc6-af68-162721193967"
+    }
   }
 }
