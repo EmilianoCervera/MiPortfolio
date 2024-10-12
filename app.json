@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "EventFreeApp",
-    "slug": "EventFreeApp",
+    "name": "MiPortfolio",
+    "slug": "miportfolio",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,16 +12,24 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.emicerv.miportfolio"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.emicerv.miportfolio"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7ab0b234-2940-4cc6-af68-162721193967"
+      }
+    },
+    "owner": "emicerv"
   }
 }
