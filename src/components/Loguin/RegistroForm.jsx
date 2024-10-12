@@ -50,26 +50,26 @@ const RegistroForm = () => {
       <TextInput
         style={styles.input}
         placeholder="Nombre"
-        placeholderTextColor="#000"
+        placeholderTextColor="#333"
         onChangeText={(value) => onChangeInput("nombre", value)} // Guardar nombre en formState
       />
       <TextInput
         style={styles.input}
         placeholder="Email"
-        placeholderTextColor="#000"
+        placeholderTextColor="#333"
         onChangeText={(value) => onChangeInput("email", value)} // Guardar email en formState
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
-        placeholderTextColor="#000"
+        placeholderTextColor="#333"
         secureTextEntry
         onChangeText={(value) => onChangeInput("password", value)} // Guardar password en formState
       />
       <TextInput
         style={styles.input}
         placeholder="Contacto (Email, Redes Sociales, etc.)"
-        placeholderTextColor="#000"
+        placeholderTextColor="#333"
         onChangeText={(value) => onChangeInput("contacto", value)} // Guardar contacto en formState
       />
 

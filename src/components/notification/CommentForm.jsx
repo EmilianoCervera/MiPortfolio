@@ -9,15 +9,15 @@ const CommentForm = ({ title, description, setTitle, setDescription, addEvent })
     <View style={styles.formContainer}>
       <TextInput
         style={styles.input}
-        placeholder="Título"
-        placeholderTextColor="#000"
+        placeholder="Nombre"
+        placeholderTextColor="#333"
         value={title}
         onChangeText={setTitle}
       />
       <TextInput
         style={styles.input}
-        placeholder="Descripción"
-        placeholderTextColor="#000"
+        placeholder="¿Que opinas?"
+        placeholderTextColor="#333"
         value={description}
         onChangeText={setDescription}
       />

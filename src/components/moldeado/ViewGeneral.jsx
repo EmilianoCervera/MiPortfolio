@@ -28,11 +28,11 @@ export const ViewGeneral = () => {
 
     switch (skill) {
       case "whatsapp":
-        const phoneNumber = "656689812"; 
+        const phoneNumber = "656689812";
         url = `https://wa.me/${phoneNumber}`;
         break;
       case "instagram":
-        const instagramUsername = "eemmiic"; 
+        const instagramUsername = "eemmiic";
         url = `https://www.instagram.com/${instagramUsername}`;
         break;
       case "phone-call":
@@ -42,6 +42,10 @@ export const ViewGeneral = () => {
       case "email":
         const email = "emicerv071092@gmail.com";
         url = `mailto:${email}`;
+        break;
+      case "github":
+        const github = "EmilianoCervera/MiPortfolio";
+        url = `https://github.com/${github}`;
         break;
       default:
         setSelectedSkill(skill);
@@ -82,6 +86,9 @@ export const ViewGeneral = () => {
             <TouchableOpacity onPress={() => handlePress("instagram")}>
               <Ionicons name="logo-instagram" size={24} color="white" />
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePress("github")}>
+              <AntDesign name="github" size={24} color="white" />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.content2}>
@@ -96,7 +103,10 @@ export const ViewGeneral = () => {
               />
             </TouchableOpacity>
           </View>
-          <Text style={styles.description}>
+          <Text style={styles.description}
+           numberOfLines={6}
+           ellipsizeMode="tail" 
+          >
             Hola! {"\n"} Soy un desarrollador apasionado y creativo.
             Comprometido con la creación de interfaces de usuario intuitivas y
             atractivas que ofrecen una experiencia excepcional al usuario.{"\n"}{" "}
@@ -133,11 +143,11 @@ export const ViewGeneral = () => {
             <View style={styles.modalContainer}>
               <Text style={styles.modalTitle}>Hola!</Text>
               <Text style={styles.modalDescription}>
-              Soy un desarrollador apasionado y creativo.
-                Comprometido con la creación de interfaces de usuario intuitivas
-                y atractivas que ofrecen una experiencia excepcional al usuario.
+                Soy un desarrollador apasionado y creativo. Comprometido con la
+                creación de interfaces de usuario intuitivas y atractivas que
+                ofrecen una experiencia excepcional al usuario.
                 {"\n"} Capaz de trabajar en equipo, resolver problemas y
-                aprender nuevas tecnologías rápidamente.
+                aprender nuevas tecnologías rápidamente.{"\n"}{"\n"}{" "}Deja tu comentario!{"\n"}{"\n"}usu1@gmail.com{"\n"}Pass: 123
               </Text>
               <TouchableOpacity
                 onPress={handleCloseModal}

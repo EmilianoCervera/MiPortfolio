@@ -12,10 +12,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 // Inicializamos los comentarios
 const initialNotifis = [
-  { id: "1", title: "nombre 1", description: "Comentario 1", image: image },
-  { id: "2", title: "nombre 2", description: "Comentario 2", image: image },
-  { id: "3", title: "nombre 3", description: "Comentario 3", image: image },
-];
+  { id: "1", title: "nombre 1", description: "Comentario 1", image: image },];
 
 export const Notifications = () => {
   const [notifis, setNotifis] = useState(initialNotifis);

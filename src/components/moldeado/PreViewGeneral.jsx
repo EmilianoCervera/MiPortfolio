@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#222",
     width: "95%",
-    height: "35%",
+    height: "34%",
     borderRadius: 25,
     shadowColor: "#fff",
     shadowOffset: {

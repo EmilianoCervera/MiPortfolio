@@ -43,7 +43,7 @@ const IngresoForm = ({ onLoginSuccess }) => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={{width:"100%" }}
       behavior={Platform.OS === "ios" ? "padding" : "height"} // Diferente comportamiento para iOS y Android
       keyboardVerticalOffset={100} // Ajustar si es necesario
     >
@@ -56,14 +56,14 @@ const IngresoForm = ({ onLoginSuccess }) => {
           <TextInput
             style={styles.input}
             placeholder="Correo"
-            placeholderTextColor="#000"
+            placeholderTextColor="#333"
             onChangeText={(value) => onChangeInput("email", value)}
             value={formState.email}
           />
           <TextInput
             style={styles.input}
             placeholder="Contraseña"
-            placeholderTextColor="#000"
+            placeholderTextColor="#333"
             secureTextEntry
             onChangeText={(value) => onChangeInput("password", value)}
             value={formState.password}
@@ -83,8 +83,6 @@ const styles = StyleSheet.create({
     paddingHorizontal:15,
     justifyContent: "center", // Centrar los elementos dentro del contenedor
     flexGrow: 1,
-    backgroundColor:"red",
-    
   },
   headerText: {
     color: "white",

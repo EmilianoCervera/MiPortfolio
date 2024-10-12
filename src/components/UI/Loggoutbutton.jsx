@@ -31,8 +31,8 @@ export const Loggoutbutton = () => {
 const styles = StyleSheet.create({
   button: {
     position: "absolute",
-    bottom: 205,
-    right: 20,
+    bottom: 210,
+    right: 8,
     backgroundColor: "#333",
     borderRadius: 50,
     padding: 10,
