@@ -10,10 +10,10 @@ import {
   Linking,
 } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import AntDesign from "@expo/vector-icons/AntDesign"; // Importa AntDesign para el ícono de cerrar
+import AntDesign from "@expo/vector-icons/AntDesign"; 
 import Fontisto from "@expo/vector-icons/Fontisto";
 import Ionicons from "@expo/vector-icons/Ionicons";
-//import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Feather from "@expo/vector-icons/Feather";
 
 export const ViewGeneral = () => {
