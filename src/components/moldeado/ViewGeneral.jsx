@@ -147,7 +147,7 @@ export const ViewGeneral = () => {
                 creación de interfaces de usuario intuitivas y atractivas que
                 ofrecen una experiencia excepcional al usuario.
                 {"\n"} Capaz de trabajar en equipo, resolver problemas y
-                aprender nuevas tecnologías rápidamente.{"\n"}{"\n"}{" "}Deja tu comentario!{"\n"}{"\n"}usu1@gmail.com{"\n"}Pass: 123
+                aprender nuevas tecnologías rápidamente.{"\n"}{"\n"}{" "}Deja tu comentario!{"\n"}{"\n"}usuario@usu.com{"\n"}Pass: 1234
               </Text>
               <TouchableOpacity
                 onPress={handleCloseModal}

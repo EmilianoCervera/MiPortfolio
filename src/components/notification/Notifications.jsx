@@ -12,7 +12,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 // Inicializamos los comentarios
 const initialNotifis = [
-  { id: "1", title: "nombre 1", description: "Comentario 1", image: image },];
+  { id: "1", title: "Emiliano", description: "buen diseño!", image: image },];
 
 export const Notifications = () => {
   const [notifis, setNotifis] = useState(initialNotifis);
@@ -21,7 +21,7 @@ export const Notifications = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalType, setModalType] = useState(""); // "registro", "ingreso", "denegado"
   const { formState, onChageInput } = useForm();
-  const { state } = useContext(AuthContext); // Obtener el estado del contexto
+  const { state } = useContext(AuthContext);
 
   // Manejar la apertura del modal
   const handleOpenModal = (type) => {

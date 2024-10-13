@@ -1,41 +1,61 @@
 import React from "react";
-import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { 
+  View, 
+  TextInput, 
+  TouchableOpacity, 
+  StyleSheet, 
+  KeyboardAvoidingView, 
+  ScrollView, 
+  Platform, 
+  Keyboard 
+} from "react-native";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const CommentForm = ({ title, description, setTitle, setDescription, addEvent }) => {
-  const isButtonDisabled = !title || !description; // El botón se desactiva si título o descripción están vacíos.
+  const isButtonDisabled = !title || !description; // Botón desactivado si los campos están vacíos.
 
   return (
-    <View style={styles.formContainer}>
-      <TextInput
-        style={styles.input}
-        placeholder="Nombre"
-        placeholderTextColor="#333"
-        value={title}
-        onChangeText={setTitle}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="¿Que opinas?"
-        placeholderTextColor="#333"
-        value={description}
-        onChangeText={setDescription}
-      />
-      <TouchableOpacity
-        style={[styles.addButton, isButtonDisabled && styles.disabledButton]} // Aplica estilo de desactivado
-        onPress={addEvent}
-        disabled={isButtonDisabled}
-      >
-        {isButtonDisabled ? (
-          <View>
-            <FontAwesome6 name="face-meh-blank" size={24} color="white" />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : undefined} // iOS: mueve contenido hacia arriba
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}> {/* Cierra el teclado al tocar fuera del input */}
+        <ScrollView 
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}
+          keyboardShouldPersistTaps="handled" // Asegura que los inputs se pueden tocar mientras el teclado está abierto
+        >
+          <View style={styles.formContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Nombre"
+              placeholderTextColor="#333"
+              value={title}
+              onChangeText={setTitle}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="¿Qué opinas?"
+              placeholderTextColor="#333"
+              value={description}
+              onChangeText={setDescription}
+              multiline
+            />
+            <TouchableOpacity
+              style={[styles.addButton, isButtonDisabled && styles.disabledButton]}
+              onPress={addEvent}
+              disabled={isButtonDisabled}
+            >
+              {isButtonDisabled ? (
+                <FontAwesome6 name="face-meh-blank" size={24} color="white" />
+              ) : (
+                <FontAwesome6 name="face-grin-beam" size={24} color="white" />
+              )}
+            </TouchableOpacity>
           </View>
-        ) : (
-          <FontAwesome6 name="face-grin-beam" size={24} color="white" />
-        )}
-      </TouchableOpacity>
-      
-    </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -49,20 +69,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
-    width: "100%",
+    width: "90%",
   },
   addButton: {
     backgroundColor: "#333",
     borderRadius: 50,
     padding: 10,
     alignItems: "center",
-    justifyContent: "center", // Centra el icono en el botón
+    justifyContent: "center", 
     marginVertical: 5,
     width: "90%",
   },
   disabledButton: {
-    backgroundColor: "#333", // Color de fondo más claro para el botón desactivado
-    width: "30%",
+    backgroundColor: "#555", // Color más claro para el botón desactivado
   },
 });
 
