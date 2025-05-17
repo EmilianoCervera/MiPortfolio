@@ -30,7 +30,7 @@ export const ButtonTabNavigator = () => {
           borderColor: "#222",
           position: "absolute",
           borderTopColor: "#000",
-          bottom: 20,
+          bottom: 10,
           left: 10,
           right: 10,
           height: 60,
@@ -45,7 +45,7 @@ export const ButtonTabNavigator = () => {
           elevation: 3,
         },
         tabBarLabelStyle: {
-          display: "none", // Ocultar los nombres debajo de los iconos
+          display: "none", 
         },
         tabBarItemStyle: {
           flex: 1,

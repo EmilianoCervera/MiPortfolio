@@ -12,7 +12,7 @@ export const Mold1 = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor:"red",
-        width:"95%",
+        width:"100%",
         height:320,
         borderRadius:25,
         margin:5
